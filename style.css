@@ -23,13 +23,16 @@
 
 html {
     scroll-behavior: smooth;
+    /* Impede que o texto aumente automaticamente em alguns navegadores móveis */
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
     background-color: #fff;
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Garante que nada escape para os lados */
+    width: 100%;
 }
 
 img, video, iframe {
@@ -60,6 +63,7 @@ textarea:focus-visible {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
 }
 
 .section {
@@ -115,6 +119,7 @@ textarea:focus-visible {
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    text-align: center;
 }
 
 .btn:hover {
@@ -154,6 +159,7 @@ textarea:focus-visible {
     backdrop-filter: blur(10px);
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    width: 100%;
 }
 
 .nav-container {
@@ -232,12 +238,11 @@ textarea:focus-visible {
     position: relative;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: var(--white);
-    padding: 100px 20px 80px;
+    padding: 100px 0 80px; /* Ajustado padding lateral */
+    width: 100%;
 }
 
 .hero-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     gap: 50px;
@@ -423,7 +428,7 @@ textarea:focus-visible {
    ========================================================================== */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -674,6 +679,7 @@ textarea:focus-visible {
     overflow: hidden;
     box-shadow: var(--shadow);
     height: 400px;
+    width: 100%;
 }
 
 .map-wrapper iframe {
@@ -689,6 +695,7 @@ textarea:focus-visible {
     background: var(--secondary);
     color: var(--white);
     padding: 40px 0 20px;
+    width: 100%;
 }
 
 .footer-content {
@@ -767,11 +774,17 @@ textarea:focus-visible {
 /* ==========================================================================
    RESPONSIVIDADE (CELULAR E TABLET)
    ========================================================================== */
+/* Tablets e celulares grandes landscape */
 @media (max-width: 992px) {
+    .container {
+        padding: 0 15px;
+    }
+
     .hero-container,
     .about-grid,
     .contact-grid {
         grid-template-columns: 1fr;
+        gap: 40px;
     }
 
     .hero-content {
@@ -787,11 +800,11 @@ textarea:focus-visible {
     }
 
     .mobile-toggle {
-        display: block;
+        display: block; /* Exibe o botão de menu em telas menores */
     }
 
     .nav-links {
-        display: none;
+        display: none; /* Escondido por padrão no mobile */
         flex-direction: column;
         width: 100%;
         position: absolute;
@@ -800,35 +813,195 @@ textarea:focus-visible {
         background: var(--white);
         padding: 20px;
         box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        gap: 15px;
     }
 
     .nav-links.active {
-        display: flex;
+        display: flex; /* Classe ativada por JS se necessário */
+    }
+
+    /* Impede elementos do Grid de ultrapassarem a tela */
+    .about-grid > *,
+    .contact-grid > *,
+    .hero-container > * {
+        min-width: 0;
+        max-width: 100%;
     }
 }
 
+/* Celulares pequenos e médios portrait (Refatorado para corrigir tamanho grande) */
 @media (max-width: 576px) {
+    body {
+        font-size: 14px; /* Reduz ligeiramente o tamanho base da fonte */
+    }
+
     .section {
         padding: 50px 0;
     }
 
-    .hero-content h1 {
-        font-size: 1.8rem;
+    /* Títulos da seção menores no mobile */
+    .section-header {
+        margin-bottom: 35px;
+        padding: 0 10px;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem; /* Reduzido de 1.9rem */
+        line-height: 1.2;
+    }
+
+    .section-header p {
+        font-size: 0.95rem; /* Reduzido de 1rem */
+        line-height: 1.5;
+    }
+
+    /* Seção Sobre */
+    .about-grid {
+        gap: 25px; /* Reduzido de 30px */
+    }
+
+    .about-text h3 {
+        font-size: 1.5rem; /* Reduzido de 1.65rem */
+        line-height: 1.25;
+        margin-bottom: 15px;
+        overflow-wrap: break-word;
+    }
+
+    .about-text p {
+        font-size: 0.95rem; /* Reduzido de 1rem */
+        line-height: 1.6;
+    }
+
+    /* Estatísticas menores */
+    .about-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px; /* Reduzido de 12px */
     }
 
     .stat-card {
-        padding: 15px;
+        padding: 15px 8px; /* Reduzido */
     }
 
+    .stat-card i {
+        font-size: 2rem; /* Ícones menores nas estatísticas */
+    }
+
+    .stat-card h4 {
+        font-size: 1.3rem; /* Reduzido de 1.5rem */
+    }
+
+    .stat-card p {
+        font-size: 0.75rem; /* Reduzido de 0.8rem */
+    }
+
+    /* Hero menores no mobile */
+    .hero {
+        padding: 60px 0 50px; /* Reduzido padding lateral/vertical */
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 4px 12px;
+        margin-bottom: 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.7rem; /* Reduzido de 1.8rem */
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem; /* Reduzido de 1rem */
+        margin-bottom: 25px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        padding: 12px 20px; /* Botões ligeiramente menores */
+        font-size: 0.95rem;
+    }
+    
+    .hero-card-profile {
+        padding: 25px 20px; /* Reduzido de 40px 30px */
+    }
+    
+    .profile-avatar-wrapper {
+        width: 100px; /* Avatar menor */
+        height: 100px;
+    }
+
+    /* Serviços menores */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 25px 20px; /* Reduzido */
+    }
+    
+    .service-icon {
+        width: 50px; /* Ícones de serviço menores */
+        height: 50px;
+        font-size: 1.4rem;
+    }
+
+    /* Galeria menores */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .gallery-card {
+        height: 200px; /* Reduzido de 230px */
+    }
+
+    /* Contato menores */
+    .contact-card {
+        padding: 20px; /* Reduzido de 25px 20px */
+    }
+    
+    .contact-card h3 {
+        font-size: 1.3rem; /* Título do card menor */
+    }
+    
+    .form-group label {
+        font-size: 0.85rem;
+    }
+    
+    .contact-item .item-icon {
+        width: 35px; /* Ícones de contato menores */
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .contact-item a, .contact-item p {
+        font-size: 0.9rem;
+    }
+
+    /* Rodapé menores */
+    .footer {
+        padding: 30px 0 15px;
+    }
+    
     .footer-content {
         flex-direction: column;
         text-align: center;
+        gap: 15px;
     }
 
     .footer-copy {
         text-align: center;
+        font-size: 0.8rem;
     }
 
+    /* WhatsApp flutuante menor */
     .whatsapp-float {
         bottom: 20px;
         right: 20px;
@@ -838,6 +1011,6 @@ textarea:focus-visible {
     }
 
     .float-tooltip {
-        display: none;
+        display: none; /* Garante que a tooltip não apareça no mobile */
     }
 }
